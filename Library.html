@@ -7,14 +7,61 @@
     <link rel="stylesheet" type="text/css" href="Library.css" />
   </head>
   <body>
-    <h1><center>Library</center></h1>
+    <h1><center>My Library</center></h1>
     <form>
-      <label for="bookInput">Enter Book:</label>
-      <input type="text" id="bookInput" name="text-field" />
-      <button for="bookInput" onclick="addBooks()" type="submit">Add</button>
-      <button for="bookInput" onclick="deleteRecent()">Delete</button>
+      <!-- <input type="text" id="bookInput" name="text-field" /> -->
+      <button onclick="toggleOverlay()" type="submit">New Book</button>
+      <!-- <button for="bookInput" onclick="deleteRecent()">Delete</button> -->
       <button for="bookInput" onclick="clearBooks()">Clear</button>
     </form>
+
+    <div id="overlay" class="overlay">
+      <div class="overlay-content">
+        <span class="close" onclick="toggleOverlay()">&times;</span>
+        <form id="bookForm">
+          <label for="bookTitle">Book Title:</label>
+          <input
+            type="text"
+            id="bookInput"
+            name="bookInput"
+            required
+            oninput="formChecker()"
+          /><br />
+
+          <label for="bookAuthor">Author:</label>
+          <input
+            type="text"
+            id="bookAuthor"
+            name="bookAuthor"
+            required
+            oninput="formChecker()"
+          /><br />
+
+          <label for="totalPages">Total Pages:</label>
+          <input
+            type="number"
+            id="totalPages"
+            name="totalPages"
+            required
+            oninput="formChecker()"
+          /><br />
+
+          <label for="readStatus">Have you read it?</label>
+          <select id="readStatus" name="readStatus">
+            <option value="yes">Yes</option>
+            <option value="no">No</option></select
+          ><br />
+
+          <input
+            type="button"
+            value="Add"
+            id="addButton"
+            onclick="addBooks()"
+          />
+          <input type="button" value="Clear" onclick="resetForm()" />
+        </form>
+      </div>
+    </div>
 
     <div id="bookArea"></div>
   </body>
