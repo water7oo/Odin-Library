@@ -14,6 +14,12 @@ function Book(title, author, pageTotal, readStatus) {
   this.readStatus = readStatus;
 }
 
+function handleReadStatusChange(event, index) {
+  const isChecked = event.target.checked;
+  // Update the read status in your myLibrary array based on isChecked
+  myLibrary[index].readStatus = isChecked ? "yes" : "no";
+}
+
 function formChecker() {
   const bookTitle = document.getElementById("bookInput").value;
   const bookAuthor = document.getElementById("bookAuthor").value;
@@ -32,7 +38,8 @@ function addBooks() {
   const bookTitle = document.getElementById("bookInput").value;
   const bookAuthor = document.getElementById("bookAuthor").value;
   const totalPages = document.getElementById("totalPages").value;
-  const readStatus = document.getElementById("readStatus-${index}").value;
+  const readStatusCheckbox = document.getElementById("readStatus").value;
+  const readStatus = readStatusCheckbox.checked ? "yes" : "no";
 
   const newBook = new Book(bookTitle, bookAuthor, totalPages, readStatus);
 
@@ -109,6 +116,9 @@ function toggleOverlay() {
 }
 
 function resetForm() {
-  document.getElementById("bookForm").reset();
+  document.getElementById("bookInput").value = "";
+  document.getElementById("bookAuthor").value = "";
+  document.getElementById("totalPages").value = "";
+
   event.preventDefault();
 }
