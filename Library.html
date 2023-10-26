@@ -3,7 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Library</title>
+    <link rel="stylesheet" type="text/css" href="Library.css" />
   </head>
-  <body></body>
+  <body>
+    <h1><center>Library</center></h1>
+    <form>
+      <label for="bookInput">Enter Book:</label>
+      <input type="text" id="bookInput" name="text-field" />
+      <button for="bookInput" onclick="addBooks()" type="submit">Add</button>
+      <button for="bookInput" onclick="deleteRecent()">Delete</button>
+      <button for="bookInput" onclick="clearBooks()">Clear</button>
+    </form>
+
+    <div id="bookArea"></div>
+  </body>
+
+  <script src="Library.js"></script>
 </html>
