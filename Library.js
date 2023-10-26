@@ -32,7 +32,7 @@ function addBooks() {
   const bookTitle = document.getElementById("bookInput").value;
   const bookAuthor = document.getElementById("bookAuthor").value;
   const totalPages = document.getElementById("totalPages").value;
-  const readStatus = document.getElementById("readStatus").value;
+  const readStatus = document.getElementById("readStatus-${index}").value;
 
   const newBook = new Book(bookTitle, bookAuthor, totalPages, readStatus);
 
@@ -47,14 +47,18 @@ function addBooks() {
 
 function showBooks() {
   const bookArea = document.getElementById("bookArea");
-
   bookArea.innerHTML = "";
 
-  myLibrary.forEach((book) => {
+  myLibrary.forEach((book, index) => {
     const bookDiv = document.createElement("div");
     bookDiv.className = "book";
 
     // Create elements for book details
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "x";
+    closeButton.className = "close-button";
+    closeButton.addEventListener("click", () => removeBook(index));
+
     const titleElement = document.createElement("p");
     titleElement.textContent = `Title: ${book.title}`;
 
@@ -64,35 +68,47 @@ function showBooks() {
     const totalPagesElement = document.createElement("p");
     totalPagesElement.textContent = `Total Pages: ${book.pageTotal}`;
 
-    const readStatusElement = document.createElement("p");
-    readStatusElement.textContent = `Read Status: ${book.readStatus}`;
+    // Create a label for the readStatus checkbox
+    const readStatusLabel = document.createElement("label");
+    readStatusLabel.textContent = "Reading: ";
 
-    // Append book details to the bookDiv
+    const readStatusCheckbox = document.createElement("input");
+    readStatusCheckbox.type = "checkbox";
+    readStatusCheckbox.className = "readStatus";
+    readStatusCheckbox.checked = book.readStatus === "yes";
+    readStatusCheckbox.addEventListener("change", (event) =>
+      handleReadStatusChange(event, index)
+    );
+
+    // Append the elements to the bookDiv
+    bookDiv.appendChild(closeButton);
     bookDiv.appendChild(titleElement);
     bookDiv.appendChild(authorElement);
     bookDiv.appendChild(totalPagesElement);
-    bookDiv.appendChild(readStatusElement);
+
+    // Append the label and checkbox for the readStatus
+    readStatusLabel.appendChild(readStatusCheckbox);
+    bookDiv.appendChild(readStatusLabel);
 
     // Append the bookDiv to the bookArea
     bookArea.appendChild(bookDiv);
   });
 }
 
+function removeBook(index) {
+  myLibrary.splice(index, 1);
+  showBooks();
+}
+
 function toggleOverlay() {
   const overlay = document.getElementById("overlay");
   overlay.style.display = overlay.style.display === "block" ? "none" : "block";
   resetForm();
+  formChecker();
   event.preventDefault();
 }
 
 function resetForm() {
   document.getElementById("bookForm").reset();
-  event.preventDefault();
-}
-
-function clearBooks() {
-  while (bookArea.firstChild) {
-    bookArea.removeChild(bookArea.firstChild);
-  }
   event.preventDefault();
 }

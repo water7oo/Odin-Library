@@ -7,12 +7,16 @@
     <link rel="stylesheet" type="text/css" href="Library.css" />
   </head>
   <body>
-    <h1><center>My Library</center></h1>
+    <h1><center>MY LIBRARY</center></h1>
     <form>
-      <!-- <input type="text" id="bookInput" name="text-field" /> -->
-      <button onclick="toggleOverlay()" type="submit">New Book</button>
-      <!-- <button for="bookInput" onclick="deleteRecent()">Delete</button> -->
-      <button for="bookInput" onclick="clearBooks()">Clear</button>
+      <div class="ButtonContainer">
+        <button class="newBook" onclick="toggleOverlay()" type="submit">
+          New Book
+        </button>
+        <div class="buttonSpace2"></div>
+        <!-- <button for="bookInput" onclick="deleteRecent()">Delete</button> -->
+        <button class="clearButton2" onclick="clearBooks()">Clear</button>
+      </div>
     </form>
 
     <div id="overlay" class="overlay">
@@ -46,19 +50,26 @@
             oninput="formChecker()"
           /><br />
 
-          <label for="readStatus">Have you read it?</label>
-          <select id="readStatus" name="readStatus">
-            <option value="yes">Yes</option>
-            <option value="no">No</option></select
-          ><br />
+          <label for="readStatus">Has Read</label>
 
-          <input
-            type="button"
-            value="Add"
-            id="addButton"
-            onclick="addBooks()"
-          />
-          <input type="button" value="Clear" onclick="resetForm()" />
+          <input type="checkbox" id="readStatus-${index}" class="read-status"
+          ${book.readStatus === 'yes' ? 'checked' : ''} />
+          <br />
+          <div class="Overlay_Options">
+            <input
+              type="button"
+              value="Add"
+              id="addButton"
+              onclick="addBooks()"
+            />
+            <div id="buttonSpace"></div>
+            <input
+              type="button"
+              value="Clear"
+              class="clearButton"
+              onclick="resetForm()"
+            />
+          </div>
         </form>
       </div>
     </div>
